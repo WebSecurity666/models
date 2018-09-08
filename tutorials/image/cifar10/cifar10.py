@@ -149,11 +149,11 @@ def distorted_inputs():
   Raises:
     ValueError: If no data_dir
   """
+  # 按照batch大小来读取数据，distorted_inputs函数和input函数的区别是前者会进行shuffle
   if not FLAGS.data_dir:
     raise ValueError('Please supply a data_dir')
   data_dir = os.path.join(FLAGS.data_dir, 'cifar-10-batches-bin')
-  images, labels = cifar10_input.distorted_inputs(data_dir=data_dir,
-                                                  batch_size=FLAGS.batch_size)
+  images, labels = cifar10_input.distorted_inputs(data_dir=data_dir,batch_size=FLAGS.batch_size)
   if FLAGS.use_fp16:
     images = tf.cast(images, tf.float16)
     labels = tf.cast(labels, tf.float16)
